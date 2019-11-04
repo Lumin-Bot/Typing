@@ -1,0 +1,101 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <chrono>
+#include <cmath>
+#include <string>
+
+using namespace std;
+
+int main() {
+	int diff, points = 1000;
+	string s;
+	char a, b, c, d, e, f, g;
+	int inta, intb, intc, intd, inte, intf, intg;
+	int int0, int1, int2, int3, int4, int5, int6;
+	srand(time(0));
+	while (points > 0 && points <= 5000) {
+		a = rand() % 26 + 65 + rand() % 2 * 32;
+		b = rand() % 26 + 65 + rand() % 2 * 32;
+		c = rand() % 26 + 65 + rand() % 2 * 32;
+		d = rand() % 26 + 65 + rand() % 2 * 32;
+		e = rand() % 26 + 65 + rand() % 2 * 32;
+		f = rand() % 26 + 65 + rand() % 2 * 32;
+		g = rand() % 26 + 65 + rand() % 2 * 32;
+		cout << "Your current points " << points << ", type in order -> " << a << b << c << d << e << f << g << " : ";
+		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+		getline(cin, s);
+		std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+		cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " milliseconds, ";
+		double time1 = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+		if (time1 > 12000) cout << "you *failed* it within the interval of 12000..." << endl;
+		if (time1 < 12000) cout << "you made it within the interval of 12000..." << endl;
+		while (true) {
+			if (a > b) swap(a, b);
+			if (b > c) swap(b, c);
+			if (c > d) swap(c, d);
+			if (d > e) swap(d, e);
+			if (e > f) swap(e, f);
+			if (f > g) swap(f, g);
+			if (a < b && b < c && c < d && d < e && e < f && f < g) break;  // ASCII order
+		}
+		inta = (int)a; intb = (int)b; intc = (int)c; intd = (int)d; inte = (int)e; intf = (int)f; intg = (int)g;
+		if (a != s.at(0) || b != s.at(1) || c != s.at(2) || d != s.at(3) || e != s.at(4) || f != s.at(5) || g != s.at(6)) {
+			cout << "Answer must be \"" << a << b << c << d << e << f << g << "\"" << " String offset is ";
+			if (s.length() == 7) {
+				int0 = (int)s.at(0); int1 = (int)s.at(1); int2 = (int)s.at(2); int3 = (int)s.at(3); int4 = (int)s.at(4);
+				int5 = (int)s.at(5); int6 = (int)s.at(6);
+				diff = fabs(inta - int0) + fabs(intb - int1) + fabs(intc - int2) + fabs(intd - int3) + fabs(inte - int4)
+					+ fabs(intf - int5) + fabs(intg - int6);
+				points = points - diff; cout << diff;
+			}
+			if (s.length() == 6) {
+				int0 = (int)s.at(0); int1 = (int)s.at(1); int2 = (int)s.at(2); int3 = (int)s.at(3); int4 = (int)s.at(4);
+				int5 = (int)s.at(5);
+				diff = fabs(inta - int0) + fabs(intb - int1) + fabs(intc - int2) + fabs(intd - int3) + fabs(inte - int4)
+					+ fabs(intf - int5) + fabs(intg - 32);
+				points = points - diff; cout << diff;
+			}
+			if (s.length() == 5) {
+				int0 = (int)s.at(0); int1 = (int)s.at(1); int2 = (int)s.at(2); int3 = (int)s.at(3); int4 = (int)s.at(4);
+				diff = fabs(inta - int0) + fabs(intb - int1) + fabs(intc - int2) + fabs(intd - int3) + fabs(inte - int4)
+					+ fabs(intf - 32) + fabs(intg - 32);
+				points = points - diff; cout << diff;
+			}
+			if (s.length() == 4) {
+				int0 = (int)s.at(0); int1 = (int)s.at(1); int2 = (int)s.at(2); int3 = (int)s.at(3);
+				diff = fabs(inta - int0) + fabs(intb - int1) + fabs(intc - int2) + fabs(intd - int3) + fabs(inte - 32)
+					+ fabs(intf - 32) + fabs(intg - 32);
+				points = points - diff; cout << diff;
+			}
+			if (s.length() == 3) {
+				int0 = (int)s.at(0); int1 = (int)s.at(1); int2 = (int)s.at(2);
+				diff = fabs(inta - int0) + fabs(intb - int1) + fabs(intc - int2) + fabs(intd - 32) + fabs(inte - 32)
+					+ fabs(intf - 32) + fabs(intg - 32);
+				points = points - diff; cout << diff;
+			}
+			if (s.length() == 2) {
+				int0 = (int)s.at(0); int1 = (int)s.at(1);
+				diff = fabs(inta - int0) + fabs(intb - int1) + fabs(intc - 32) + fabs(intd - 32) + fabs(inte - 32)
+					+ fabs(intf - 32) + fabs(intg - 32);
+				points = points - diff; cout << diff;
+			}
+			if (s.length() == 1) {
+				int0 = (int)s.at(0);
+				diff = fabs(inta - int0) + fabs(intb - 32) + fabs(intc - 32) + fabs(intd - 32) + fabs(inte - 32)
+					+ fabs(intf - 32) + fabs(intg - 32);
+				points = points - diff; cout << diff;
+			}
+		}
+		if (time1 > 12000) {
+			cout << ", your total penalty is " << 2 * (diff + (time1 - 12000)) << endl;
+			points = points - (2 * (diff + (time1 - 12000)));
+			}
+		if (time1 <= 12000) cout << ", your total penalty is " << diff << endl;
+		if (a == s.at(0) && b == s.at(1) && c == s.at(2) && d == s.at(3) && e == s.at(4) && f == s.at(5) && g == s.at(6)) {
+			points = points + 500;
+		}
+	}
+	cout << "Bye..." << endl;
+	return 0;
+}
